@@ -6,7 +6,7 @@ import { CreateTaskDto } from "./dto/create-task.dto";
 import { ObjectLiteral } from "typeorm";
 import { TaskStatus } from "./task-status.enum";
 import { GetTaskFitlerDto } from "./dto/get-task-filter.dto";
-import { FILTER } from "src/constants/filter.const";
+import { FILTER } from "src/common/constants/filter.const";
 
 @Injectable()
 export class TaskService {
@@ -16,14 +16,14 @@ export class TaskService {
   ) {}
 
   findAll(filterDto: GetTaskFitlerDto): Promise<Task[]> {
-    const { page = FILTER.PAGE, amount = FILTER.AMOUNT, filter, status} = filterDto;
+    const { page = FILTER.PAGE, amount = FILTER.AMOUNT, filter = null } = filterDto;
 
     return this.taskRepository.find({
       where: {
-        status,
+        status: filter,
       },
-      skip: amount,
-      take: (page - 1) * amount,
+      take: amount,
+      skip: (page - 1) * amount,
     })
   }
 

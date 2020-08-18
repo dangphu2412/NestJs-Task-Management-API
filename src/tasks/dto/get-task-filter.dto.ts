@@ -6,5 +6,4 @@ export class GetTaskFitlerDto {
     page : number;
     amount : number;
     filter : FindConditions<Task>;
-    status : TaskStatus;
 }
