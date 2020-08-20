@@ -3,7 +3,7 @@ import { Task } from './task.interface';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
-import { TaskStatus } from './task-status.enum';
+import { TaskStatus } from '../../common/enums/task-status.enum';
 import { GetTaskFitlerDto } from './dto/get-task-filter.dto';
 
 @Controller('tasks')
