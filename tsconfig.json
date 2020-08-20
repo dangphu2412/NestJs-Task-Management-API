@@ -8,8 +8,16 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {                                /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+      "@src/*": ["./src/*"],
+      "@common/*": ["./src/common/*"],
+      "@config/*": ["./src/config/*"],
+      "@core/*": ["./src/core/*"],
+      "@database/*": ["./src/database/*"],
+    },
   },
+  "include": ["src/**/*", "ormconfig.js"],
   "exclude": [
     "node_modules",
     "dist"

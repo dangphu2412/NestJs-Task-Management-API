@@ -1,6 +1,6 @@
-import { TaskStatus } from "../task-status.enum";
+import { TaskStatus } from "@common/enums/task-status.enum";
 import { FindConditions } from "typeorm";
-import { Task } from "../task.entity";
+import { Task } from "@src/core/Tasks/task.entity";
 
 export class GetTaskFitlerDto {
     page : number;

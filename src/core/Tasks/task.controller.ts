@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, Patch, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, Patch, Delete } from '@nestjs/common';
 import { Task } from './task.interface';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
-import { TaskStatus } from './task-status.enum';
+import { TaskStatus } from '../../common/enums/task-status.enum';
 import { GetTaskFitlerDto } from './dto/get-task-filter.dto';
 
 @Controller('tasks')
@@ -11,7 +11,7 @@ export class TaskController {
   constructor(private taskService: TaskService) {}
 
   @Get()
-  findAll(@Query(ValidationPipe) filter: GetTaskFitlerDto) {
+  findAll(@Query() filter: GetTaskFitlerDto) {
     return this.taskService.findAll(filter);
   }
 
