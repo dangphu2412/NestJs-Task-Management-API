@@ -9,4 +9,8 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: UserRepository
   ) {}
+
+  getMany() {
+    return this.userRepository.find();
+  }
 }

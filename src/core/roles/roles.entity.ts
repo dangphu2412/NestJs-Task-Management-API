@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany} from "typ
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsInt, IsIn } from "class-validator";
 import { User } from "../users/user.entity";
-import { Roles } from "@src/common/enums/roles.enum";
+import { Roles } from "../../common/enums/roles.enum";
 
 @Entity()
 export class Role extends BaseEntity {

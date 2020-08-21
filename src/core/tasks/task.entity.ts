@@ -2,7 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColum
 import { TaskStatus } from "../../common/enums/task-status.enum";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsIn, IsString } from "class-validator";
-import { enumToArray } from "@src/utils/enumToArray";
+import { enumToArray } from "../../utils/enumToArray";
 import { User } from "../users/user.entity";
 import { Board } from "../boards/board.entity";
 
