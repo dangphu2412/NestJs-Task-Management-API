@@ -1,6 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne} from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsInt } from "class-validator";
+import { IsString, IsInt, IsIn } from "class-validator";
+import { Board } from "../boards/board.entity";
+import { Task } from "../tasks/task.entity";
+import { UserStatus } from "@src/common/enums/user-status.enum";
+import { enumToArray } from "@src/utils/enumToArray";
+import { Role } from "../roles/roles.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,15 +34,26 @@ export class User extends BaseEntity {
   @Column()
   age: number;
 
+  @ApiProperty({ example: UserStatus.ACTIVE })
+  @IsIn(enumToArray(UserStatus))
+  @Column({
+    default: UserStatus.ACTIVE,
+  })
+  status: UserStatus;
+
   /**
    * Relations
    */
 
-  // @ApiProperty({ readOnly: true, writeOnly: true })
-  // @OneToMany(type => Board, board => board.author, { eager: false })
-  // boards: Board[]
+  @ApiProperty({ readOnly: true, writeOnly: true })
+  @OneToMany(type => Board, board => board.author, { eager: false })
+  boards: Board[]
 
-  // @ApiProperty({ readOnly: true })
-  // @OneToMany(type => Task, task => task.members)
-  // tasks: Task[]
+  @ApiProperty({ readOnly: true })
+  @OneToMany(type => Task, task => task.members)
+  tasks: Task[]
+
+  @ApiProperty({ readOnly: true })
+  @ManyToOne(type => Role, role =>  role.users)
+  role: Role
 }

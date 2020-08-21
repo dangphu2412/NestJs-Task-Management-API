@@ -1,6 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, OneToMany} from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString } from "class-validator";
+import { User } from "../users/user.entity";
+import { Task } from "../tasks/task.entity";
 
 @Entity()
 export class Board extends BaseEntity {
@@ -24,13 +26,13 @@ export class Board extends BaseEntity {
     /**
      * Relations
      */
-    // @ApiProperty({ readOnly: true })
-    // @ManyToOne(type => User, user => user.boards, { eager: true })
-    // @JoinColumn({
-    //     name: 'userId'
-    // })
-    // author: User;
+    @ApiProperty({ readOnly: true })
+    @ManyToOne(type => User, user => user.boards, { eager: true })
+    @JoinColumn({
+        name: 'userId'
+    })
+    author: User;
 
-    // @OneToMany(type => Task, task => task.board)
-    // tasks: Task[]
+    @OneToMany(type => Task, task => task.board)
+    tasks: Task[]
 }
