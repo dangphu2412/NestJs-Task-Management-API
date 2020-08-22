@@ -7,7 +7,6 @@ import {
   SwaggerCustomOptions
 } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import * as csurf from 'csurf'
 import * as rateLimit from 'express-rate-limit';
 import 'dotenv/config';
 
@@ -16,7 +15,6 @@ async function bootstrap() {
   app.setGlobalPrefix('v1');
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  app.use(csurf)
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
