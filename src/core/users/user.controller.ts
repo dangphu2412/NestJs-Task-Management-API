@@ -1,12 +1,13 @@
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request } from '@nestjs/common';
 import { UserService } from './user.service';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { Auth } from '@src/common/decorators/auth.decorator';
+import { Roles } from '@src/common/enums/roles.enum';
 
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @Auth(Roles.ADMIN)
   @Get()
   getMany(@Request() req) {
     console.log(req.user)

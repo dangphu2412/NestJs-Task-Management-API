@@ -1,5 +1,7 @@
-export interface IToken {
-  id: number;
+import { Role } from "@src/core/roles/roles.entity";
+
+export interface ITokenPayload {
+  userId: number;
   username: string;
-  roleId: number;
+  role: Role;
 }

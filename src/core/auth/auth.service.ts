@@ -7,7 +7,7 @@ import { CreateUserDto } from "../users/dto/create-user.dto";
 import { ValidateUserDto } from "../users/dto/validate-user.dto";
 import { AuthResponse } from "@src/common/interface/auth.interface";
 import { compareSync } from "bcrypt";
-import { IToken } from "@src/common/interface/token.interface";
+import { ITokenPayload } from "@src/common/interface/token.interface";
 
 @Injectable()
 export class AuthService {
@@ -27,16 +27,17 @@ export class AuthService {
     const user: User = await this.userRepository.findOne({
       where: {
         username,
-      }
+      },
+      relations: ['role']
     });
     if (!user || !compareSync(password, user.password)) {
       throw new BadRequestException(`${username} is not valid! Please check your username and password`);
     }
-
-    const payload: IToken = {
-      id: user.id,
+    console.log(user)
+    const payload: ITokenPayload = {
+      userId: user.id,
       username: user.username,
-      roleId: user.roleId,
+      role: user.role
     }
 
     const token: string = this.jwtService.sign(payload);
