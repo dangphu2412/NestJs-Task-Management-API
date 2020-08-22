@@ -17,7 +17,7 @@ import { Task } from "../tasks/task.entity";
 import { UserStatus } from "../../common/enums/user-status.enum";
 import { enumToArray } from "../../utils/enumToArray";
 import { Role } from "../roles/roles.entity";
-import { BadRequestException } from "@nestjs/common";
+import { UnprocessableEntityException } from "@nestjs/common";
 
 @Entity()
 export class User extends BaseEntity {
@@ -97,7 +97,7 @@ export class User extends BaseEntity {
     });
 
     if (isExisted) {
-      throw new BadRequestException(`${this.username} has already existed`);
+      throw new UnprocessableEntityException(`${this.username} has already existed`);
     }
     this.password = hashSync(this.password, 10);
   }

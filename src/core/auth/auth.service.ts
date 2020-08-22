@@ -7,6 +7,7 @@ import { CreateUserDto } from "../users/dto/create-user.dto";
 import { ValidateUserDto } from "../users/dto/validate-user.dto";
 import { AuthResponse } from "@src/common/interface/auth.interface";
 import { compareSync } from "bcrypt";
+import { IToken } from "@src/common/interface/token.interface";
 
 @Injectable()
 export class AuthService {
@@ -32,11 +33,13 @@ export class AuthService {
       throw new BadRequestException(`${username} is not valid! Please check your username and password`);
     }
 
-    const token = this.jwtService.sign({
+    const payload: IToken = {
       id: user.id,
       username: user.username,
       roleId: user.roleId,
-    });
+    }
+
+    const token: string = this.jwtService.sign(payload);
 
     const credentials: AuthResponse = {
       user,
